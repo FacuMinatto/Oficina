@@ -13,11 +13,21 @@ int main(void) {
 	
 	void (*p[5])(void) = {activator, red, imp, disk};
 	
-	imprimir();
-	int valor = ingresar();
+	int valor; 
 	
-	p[valor - 1]();
+	do {
+		system("cls"); 
+		
+		imprimir();
+		valor = ingresar(); 
+		
+		if (valor > 0) {
+			p[valor - 1]();
+		}
+		
+	} while (valor != 0);
 	
+	printf("\nSaliendo del sistema...\n");
 	return 0;
 }
 
