@@ -8,10 +8,11 @@ void activator (void);
 void red (void);
 void imp (void);
 void disk (void);
+void oracle (void);
 
 int main(void) {
 	
-	void (*p[5])(void) = {activator, red, imp, disk};
+	void (*p[5])(void) = {activator, red, imp, disk, oracle};
 	
 	int valor; 
 	
@@ -39,6 +40,7 @@ void imprimir(void){
 	printf("|2| Reiniciar ajustes de red\n");
 	printf("|3| Borrar cola de la impresora\n");
 	printf("|4| Escanear el disco en busca de errores\n");
+	printf("|5| Modifica el idioma del oracle\n");
 	printf("|0| Salir\n\n");
 }
 	
@@ -53,7 +55,7 @@ int ingresar(void) {
 		if (var == 0)
 			exit(1);
 		
-	} while(var < 0 || var > 4);
+	} while(var < 0 || var > 5);
 	
 	return var;
 }
@@ -106,4 +108,23 @@ void disk (void){
 	system("dism /online /Cleanup-Image /RestoreHealth");
 	system("sfc /scannow");
 	
+}
+
+void oracle (void){
+	
+	const char *comando = "reg add \"HKLM\\SOFTWARE\\WOW6432Node\\ORACLE\\KEY_OraClient11g_home1\" "
+		"/v \"NLS_LANG\" "
+		"/t REG_SZ "
+		"/d \"AMERICAN_AMERICA.WE8MSWIN1252\" "
+		"/f";
+	
+	int resultado = system(comando);
+	
+	if (resultado == 0) {
+		printf("[EXITO] El registro fue modificado correctamente.\n");
+	} else {
+		printf("[ERROR] Fallo el comando. Posibles causas:\n");
+		printf(" 1. No ejecutaste como ADMINISTRADOR (Error de Acceso).\n");
+		printf(" 2. La ruta del registro no existe.\n");
+	}
 }
