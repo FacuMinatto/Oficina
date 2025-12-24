@@ -34,7 +34,9 @@ int main(void) {
 
 void imprimir(void){
 	
-	printf("¿Qué comando para CMD necesitas?\n\n");
+	system("color 97");
+	
+	printf("¿Qué herramienta necesitas?\n\n");
 	
 	printf("|1| Activador de Windows - Office\n");
 	printf("|2| Reiniciar ajustes de red\n");
@@ -49,8 +51,9 @@ int ingresar(void) {
 	int var;
 	
 	do {
-		printf("Ingrese un numero: ");
+		printf("Ingrese un número: ");
 		scanf("%d", &var);
+		printf("\n");
 		
 		if (var == 0)
 			exit(1);
@@ -62,7 +65,7 @@ int ingresar(void) {
 
 void esperar_enter(void) {
 	
-	printf("\nPresione ENTER para continuar al siguiente paso...");
+	printf("\nPresione ENTER para continuar...");
 
 	int c;
 	while ((c = getchar()) != '\n' && c != EOF) { }
@@ -74,39 +77,41 @@ void activator (void){
 	
 	system("powershell -Command \"irm https://get.activated.win | iex\"");
 	
+	esperar_enter();
 }
 
 void red (void){
 	
+	system("cls");
 	system("netsh winsock reset");
-	
 	system("netsh int ip reset");
-	
 	system("ipconfig /release");
-	
 	system("ipconfig /renew");
-	
 	system("ipconfig /flushdns");
-	
 	system("ipconfig /registerdns");
+	
+	esperar_enter();
 }
 
 void imp (void){
 	
+	system("cls");
 	system("net stop spooler");
 	
-	printf("\nBuscar en system32 la carpeta spool - printers; Y borras todo.\n");
-	esperar_enter();
+	printf("Buscar en system32 la carpeta spool - printers; Y borras todo.\n");
 	
+	esperar_enter();
 	system("net start spooler");
 }
 
 void disk (void){
 	
+	system("cls");
 	system("DISM /online /cleanup-image /checkhealth");
 	system("DISM /online /cleanup-image /scanhealth");
 	system("dism /online /Cleanup-Image /RestoreHealth");
 	system("sfc /scannow");
+	esperar_enter();
 	
 }
 
@@ -127,4 +132,6 @@ void oracle (void){
 		printf(" 1. No ejecutaste como ADMINISTRADOR (Error de Acceso).\n");
 		printf(" 2. La ruta del registro no existe.\n");
 	}
+	
+	esperar_enter();
 }
