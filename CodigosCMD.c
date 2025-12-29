@@ -9,10 +9,11 @@ void red (void);
 void imp (void);
 void disk (void);
 void oracle (void);
+void d_oracle (void);		
 
 int main(void) {
 	
-	void (*p[5])(void) = {activator, red, imp, disk, oracle};
+	void (*p[6])(void) = { activator, red, imp, disk, d_oracle, oracle };
 	
 	int valor; 
 	
@@ -42,7 +43,8 @@ void imprimir(void){
 	printf("|2| Reiniciar ajustes de red\n");
 	printf("|3| Borrar cola de la impresora\n");
 	printf("|4| Escanear el disco en busca de errores\n");
-	printf("|5| Modifica el idioma del oracle\n");
+	printf("|5| Descargar Oracle\n");
+	printf("|6| Modifica el idioma del oracle\n");
 	printf("|0| Salir\n\n");
 }
 	
@@ -58,7 +60,7 @@ int ingresar(void) {
 		if (var == 0)
 			exit(1);
 		
-	} while(var < 0 || var > 5);
+	} while(var < 0 || var > 6);
 	
 	return var;
 }
@@ -134,4 +136,72 @@ void oracle (void){
 	}
 	
 	esperar_enter();
+}
+
+void d_oracle (void){
+	
+	system("cls");
+	
+	int var;
+	
+	do {
+	 
+	printf("¿Qué versión quieres descargar?\n");
+	printf("|1| Oracle 9\n");
+	printf("|2| oracle 11\n");
+	scanf("%d", &var);
+	 
+	} while (var < 1 && var > 2);
+	
+	
+	if (var == 1){
+		
+		char *url2 = "https://download844.mediafire.com/9l6lj064xnvgP2agzEF_WE9b-R2aoIj3pSe0SvkgKovJm4iXdSFGzw6TbxSrtV5Hb1Mf23WWPcT21dIec0B9n2P-2wQm-uqXAgHKEP87aif0vRvP0SJm9ZKsoZKITeuSTyhMaa-HE_PWKJIq91Ln14o7EG-MnKt1mky6I9eHyEQ9G0Y/lqheiw04xqwcq2y/ORACLE+9.rar";
+		char *nombre_archivo2 = "Oracle 9.rar";
+		char comando2[1024];
+		
+		sprintf(comando2, "curl -L -o \"%s\" \"%s\"", nombre_archivo2, url2);
+		
+		printf("Iniciando descarga...\n");
+		printf("Informacion: %% Descarga | Total | Recibido | Velocidad | Tiempo Restante\n\n");
+		
+		int resultado = system(comando2);
+		
+		printf("\n\n"); 
+		
+		if (resultado == 0) {
+			printf("[EXITO] Archivo guardado como: %s\n", nombre_archivo2);
+			printf("Se guardo el archivo al lado del ejecutable.\n");
+		} else {
+			printf("[ERROR] No se pudo descargar. Verifica tu internet o el enlace.\n");
+		}
+		
+		esperar_enter();
+	}
+	
+	
+	else if (var == 2){
+		
+		char *url = "https://download937.mediafire.com/tbvmsvdysflgMXDrECyU3E8abjvo82sg04tVexPwistcnwJvpoJxovwJYD2kAq3-PFZuBeK3ZovCjufAORsEQDV--5elTzSRQBY9brAkTkXopkmw7jWbaOuQZXPbo7atTyIJEwhyPVATOATkEufeM1OcdMImG3CPjf_rqEtl9HEPhd4/wqmztfd0y89xz0g/ORACLE+11.rar";
+		char *nombre_archivo = "Oracle 11.rar";
+		char comando[1024];
+		
+		sprintf(comando, "curl -L -o \"%s\" \"%s\"", nombre_archivo, url);
+		
+		printf("Iniciando descarga...\n");
+		printf("Informacion: %% Descarga | Total | Recibido | Velocidad | Tiempo Restante\n\n");
+		
+		int resultado = system(comando);
+		
+		printf("\n\n"); 
+		
+		if (resultado == 0) {
+			printf("[EXITO] Archivo guardado como: %s\n", nombre_archivo);
+			printf("Se guardo el archivo al lado del ejecutable.\n");
+		} else {
+			printf("[ERROR] No se pudo descargar. Verifica tu internet o el enlace.\n");
+		}
+		
+		esperar_enter();
+	}
 }
