@@ -10,10 +10,11 @@ void imp (void);
 void disk (void);
 void oracle (void);
 void d_oracle (void);		
+void pdf24 (void);
 
 int main(void) {
 	
-	void (*p[6])(void) = { activator, red, imp, disk, d_oracle, oracle };
+	void (*p[7])(void) = { activator, red, imp, disk, d_oracle, oracle, pdf24 };
 	
 	int valor; 
 	
@@ -45,6 +46,7 @@ void imprimir(void){
 	printf("|4| Escanear el disco en busca de errores\n");
 	printf("|5| Descargar Oracle\n");
 	printf("|6| Modifica el idioma del oracle\n");
+	printf("|7| Descargar PDF24\n");
 	printf("|0| Salir\n\n");
 }
 	
@@ -60,7 +62,7 @@ int ingresar(void) {
 		if (var == 0)
 			exit(1);
 		
-	} while(var < 0 || var > 6);
+	} while(var < 0 || var > 7);
 	
 	return var;
 }
@@ -203,5 +205,30 @@ void d_oracle (void){
 		}
 		
 		esperar_enter();
+	}
+}
+	
+void pdf24 (void){
+	
+	system("cls");
+	
+	char *url = "https://download1500.mediafire.com/leezzk4wyrognp6DMfzEQbry6sChvsLqRPEAQxdxU7iOgJsEbFV3r1itY9kzMY2JBrzQKyVc60Jw_-x3HaHvhz6r5RNjra3sgOYY_dwg6I0yo-kM9BcgQzQAPB2dMcSDVYJ-XNYOQ4LJ5uYzP0PBv44ozdaf6K1jpgFXFdcPEDCzsA/jlpbhxnevt2gce7/pdf24-creator-11.0.1.msi";
+	char *nombre_archivo = "Pdf24 - 11.0.1.msi";
+	char comando[1024];
+	
+	sprintf(comando, "curl -L -o \"%s\" \"%s\"", nombre_archivo, url);
+	
+	printf("Iniciando descarga...\n");
+	printf("Informacion: %% Descarga | Total | Recibido | Velocidad | Tiempo Restante\n\n");
+	
+	int resultado = system(comando);
+	
+	printf("\n\n"); 
+	
+	if (resultado == 0) {
+		printf("[EXITO] Archivo guardado como: %s\n", nombre_archivo);
+		printf("Se guardo el archivo al lado del ejecutable.\n");
+	} else {
+		printf("[ERROR] No se pudo descargar. Verifica tu internet o el enlace.\n");
 	}
 }
